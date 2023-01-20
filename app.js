@@ -1,4 +1,3 @@
-//jshint esversion:6
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -16,18 +15,36 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 
+//--------------HOME ROUTE----------------------------
+app.get("/", (req, res)=>{
+  res.render('Home', {openingText: homeStartingContent});
+})
 
 
+//--------------ABOUT ROUTE---------------------------
 
+app.get("/about", (req,res)=>{
+  res.render("About",{openingText: aboutContent}) ;
+})
 
+//--------------CONTACT ROUTE-------------------------
 
+app.get("/contact", (req,res)=>{
+  res.render("contact",{openingText: contactContent}) ;
+})
 
+//--------------COMPOSE PAGE--------------------------
 
+app.get("/compose", (req,res)=>{
+  res.render("Compose");
+})
 
+app.post("/compose", (req,res)=>{
+  var post = req.body.newPost;
+  console.log(post);
+})
 
+app.listen(3000, ()=>{
+  console.log("Hello World on PORT 3000");
+})
 
-
-
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
-});
