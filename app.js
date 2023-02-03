@@ -4,65 +4,64 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
 
-const homeStartingContent = "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
-const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
-const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
+const homeStartingContent = "Seja bem-vindo ao Journal de Desenvolvedor! Aqui, você encontrará posts sobre meus projetos e experiências como desenvolvedor. Sou um apaixonado por tecnologia e acredito que compartilhar conhecimento é uma das melhores maneiras de aprender e crescer na carreira. Nesse espaço, você poderá acompanhar os desafios e soluções que encontrei em meu dia a dia como desenvolvedor. Se você também é apaixonado por tecnologia e quer se aprofundar em desenvolvimento de software, este é o lugar certo! Espero que você aproveite o conteúdo e, quem sabe, até se inspire a criar seus próprios projetos. Bem-vindo ao Journal de Desenvolvedor!";
+const aboutContent = "Sou apaixonado por criar soluções e desafiar-me a ser cada vez melhor como desenvolvedor. Acredito que a paixão por codificar é o que faz toda a diferença e é o que permite a criação de coisas incríveis. No meu tempo livre, gosto de experimentar novos recursos e tecnologias para expandir meus conhecimentos e habilidades. Além disso, compartilhar minhas experiências e soluções para problemas com outros desenvolvedores é uma grande fonte de satisfação para mim. Este journal é uma plataforma onde eu posso compartilhar meus pensamentos e soluções para problemas que encontrei ao longo do meu caminho como desenvolvedor. Bem-vindo ao meu espaço criativo!";
 
 const app = express();
 
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-const posts =[];
+const posts = [];
 
 
 //--------------HOME ROUTE----------------------------
-app.get("/", (req, res)=>{
-  res.render('home', {openingText: homeStartingContent, posts: posts});
-  
+app.get("/", (req, res) => {
+  res.render('home', { openingText: homeStartingContent, posts: posts });
+
 })
 
 
 //--------------ABOUT ROUTE---------------------------
 
-app.get("/about", (req,res)=>{
-  res.render("about",{openingText: aboutContent}) ;
+app.get("/about", (req, res) => {
+  res.render("about", { openingText: aboutContent });
 })
 
 //--------------CONTACT ROUTE-------------------------
 
-app.get("/contact", (req,res)=>{
-  res.render("contact",{openingText: contactContent}) ;
+app.get("/contact", (req, res) => {
+  res.render("contact", { openingText: contactContent });
 })
 
 //--------------COMPOSE ROUTE--------------------------
 
-app.get("/compose", (req,res)=>{
+app.get("/compose", (req, res) => {
   res.render("compose");
 })
 
-app.post("/compose", (req,res)=>{
-  const post ={
+app.post("/compose", (req, res) => {
+  const post = {
     title: req.body.postTitle,
     content: req.body.newPost
   };
-  
+
   posts.push(post);
   res.redirect("/");
 })
 
-app.listen(3000, ()=>{
+app.listen(3000, () => {
   console.log("Hello World on PORT 3000");
 })
 
 //---------------POSTS ROUTES--------------------------
 
-app.get("/posts/:postName", (req,res)=>{
-  for(var i = 0; i < posts.length; i++){
-    if(_.lowerCase(posts[i].title)  == _.lowerCase(req.params.postName)){
-      res.render('post', {postTitle: posts[i].title, postContent: posts[i].content})
+app.get("/posts/:postName", (req, res) => {
+  for (var i = 0; i < posts.length; i++) {
+    if (_.lowerCase(posts[i].title) == _.lowerCase(req.params.postName)) {
+      res.render('post', { postTitle: posts[i].title, postContent: posts[i].content })
     }
   }
 })
