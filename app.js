@@ -40,7 +40,7 @@ app.get("/contact", (req,res)=>{
 //--------------COMPOSE ROUTE--------------------------
 
 app.get("/compose", (req,res)=>{
-  res.render("Compose");
+  res.render("compose");
 })
 
 app.post("/compose", (req,res)=>{
