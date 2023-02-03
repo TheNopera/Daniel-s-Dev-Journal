@@ -20,7 +20,7 @@ const posts =[];
 
 //--------------HOME ROUTE----------------------------
 app.get("/", (req, res)=>{
-  res.render('Home', {openingText: homeStartingContent, posts: posts});
+  res.render('home', {openingText: homeStartingContent, posts: posts});
   
 })
 
@@ -28,7 +28,7 @@ app.get("/", (req, res)=>{
 //--------------ABOUT ROUTE---------------------------
 
 app.get("/about", (req,res)=>{
-  res.render("About",{openingText: aboutContent}) ;
+  res.render("about",{openingText: aboutContent}) ;
 })
 
 //--------------CONTACT ROUTE-------------------------
